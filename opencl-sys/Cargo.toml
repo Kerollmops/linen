@@ -1,6 +1,8 @@
 [package]
 name = "opencl-sys"
 version = "0.1.0"
+description = "A simple ffi to the OpenCL library"
 authors = ["Kerollmops <renault.cle@gmail.com>"]
+license = "MIT"
 
 [dependencies]
