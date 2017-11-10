@@ -1,7 +1,9 @@
 [package]
 name = "linen"
 version = "0.1.0"
+description = "Simple gpu based data-parallelism library"
 authors = ["Kerollmops <renault.cle@gmail.com>"]
+license = "MIT"
 
 [dependencies]
 opencl-sys = { version = "0.1", path = "../opencl-sys" }
