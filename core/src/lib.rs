@@ -1,7 +1,7 @@
 // extern crate opencl_sys;
 extern crate cl_sys as opencl_sys;
 
-//
+pub mod platform;
 
 #[cfg(test)]
 mod tests {
