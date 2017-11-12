@@ -38,6 +38,26 @@ fn all_platform_ids() -> Vec<cl_platform_id> {
     platforms
 }
 
+fn first_platform_id() -> Option<cl_platform_id> {
+    let mut platform_id = ptr::null_mut();
+    let mut num_platforms = 0;
+
+    let ret = unsafe {
+        clGetPlatformIDs(
+            1,
+            &mut platform_id,
+            &mut num_platforms
+        )
+    };
+    assert_eq!(ret, CL_SUCCESS);
+
+    if num_platforms == 1 {
+        Some(platform_id)
+    } else {
+        None
+    }
+}
+
 #[derive(Debug, Copy, Clone)]
 enum Info {
     Profile,
@@ -122,10 +142,7 @@ impl Platform {
     }
 
     pub fn first() -> Option<Platform> {
-        // TODO: don't load all platforms
-        let mut all_platforms = Self::all();
-        all_platforms.truncate(1);
-        all_platforms.pop()
+        first_platform_id().map(|id| Platform { id })
     }
 
     pub fn profile(&self) -> Profile {
