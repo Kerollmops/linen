@@ -1,5 +1,6 @@
 use std::ptr;
 use std::ffi::CString;
+use std::str::SplitWhitespace;
 use opencl_sys::{cl_platform_id, cl_platform_info, c_void};
 use opencl_sys::{
     CL_SUCCESS,
@@ -96,6 +97,19 @@ pub enum Profile {
     Embedded,
 }
 
+#[derive(Debug)]
+pub struct Extensions {
+    inner: String,
+}
+
+impl Extensions {
+    /// Iterate over every extensions,
+    /// represented by an `str` that doesn't contains space.
+    pub fn iter(&self) -> SplitWhitespace {
+        self.inner.split_whitespace()
+    }
+}
+
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
 pub struct Platform {
     id: cl_platform_id,
@@ -139,7 +153,10 @@ impl Platform {
         vendor.into_string().unwrap()
     }
 
-    pub fn extensions() -> () {
-        unimplemented!()
+    pub fn extensions(&self) -> Extensions {
+        let extensions = platform_info(self.id, Info::Extensions.into());
+        Extensions {
+            inner: extensions.into_string().unwrap()
+        }
     }
 }
