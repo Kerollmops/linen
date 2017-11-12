@@ -6,4 +6,5 @@ authors = ["Kerollmops <renault.cle@gmail.com>"]
 license = "MIT"
 
 [dependencies]
-opencl-sys = { version = "0.1", path = "../opencl-sys" }
+# opencl-sys = { version = "0.1", path = "../opencl-sys" }
+cl-sys = "0.4"

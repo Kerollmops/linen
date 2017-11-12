@@ -1,4 +1,5 @@
-extern crate opencl_sys;
+// extern crate opencl_sys;
+extern crate cl_sys as opencl_sys;
 
 //
 
