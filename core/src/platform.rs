@@ -132,7 +132,7 @@ impl Extensions {
 
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
 pub struct Platform {
-    id: cl_platform_id,
+    pub(crate) id: cl_platform_id,
 }
 
 impl Platform {
