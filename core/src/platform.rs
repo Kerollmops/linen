@@ -125,6 +125,7 @@ impl Platform {
     }
 
     pub fn version() -> () {
+        // OpenCL<space><major_version.minor_version><space><platform-specific information>
         unimplemented!()
     }
 
