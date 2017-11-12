@@ -1,7 +1,7 @@
 [package]
 name = "opencl-sys"
 version = "0.1.0"
-description = "A simple ffi to the OpenCL library"
+description = "OpenCL C library FFI Bindings"
 authors = ["Kerollmops <renault.cle@gmail.com>"]
 license = "MIT"
 
