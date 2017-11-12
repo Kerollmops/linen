@@ -21,8 +21,14 @@ fn main() {
             println!("\tprofile: {:?}", device.profile());
             println!("\tvendor: {}", device.vendor());
 
+            println!("extensions:");
             for extension in device.extensions().iter() {
                 println!("\t\t{}", extension);
+            }
+
+            println!("built in kernels:");
+            for built_in_kernel in device.built_in_kernels().iter() {
+                println!("\t\t{}", built_in_kernel);
             }
         }
     }

@@ -13,7 +13,7 @@ use opencl_sys::{
 use opencl_sys::{
     // CL_DEVICE_ADDRESS_BITS,
     // CL_DEVICE_AVAILABLE,
-    // CL_DEVICE_BUILT_IN_KERNELS,
+    CL_DEVICE_BUILT_IN_KERNELS,
     // CL_DEVICE_COMPILER_AVAILABLE,
     // CL_DEVICE_DOUBLE_FP_CONFIG,
     // CL_DEVICE_ENDIAN_LITTLE,
@@ -76,6 +76,7 @@ use opencl_sys::{
 };
 use opencl_sys::{clGetDeviceIDs, clGetDeviceInfo};
 use extensions::Extensions;
+use built_in_kernels::BuiltInKernels;
 use profile::Profile;
 use platform::Platform;
 
@@ -169,6 +170,8 @@ fn device_info_as_cstring(device_id: cl_device_id, info: cl_device_info) -> CStr
     CString::new(value).unwrap()
 }
 
+
+// TODO: use the `bitflags` crate
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
 pub enum Type {
     Cpu,
@@ -231,6 +234,13 @@ impl Device {
     pub fn extensions(&self) -> Extensions {
         let value = device_info_as_cstring(self.id, CL_DEVICE_EXTENSIONS);
         Extensions {
+            inner: value.into_string().unwrap()
+        }
+    }
+
+    pub fn built_in_kernels(&self) -> BuiltInKernels {
+        let value = device_info_as_cstring(self.id, CL_DEVICE_BUILT_IN_KERNELS);
+        BuiltInKernels {
             inner: value.into_string().unwrap()
         }
     }
