@@ -201,14 +201,14 @@ pub struct Device {
 }
 
 impl Device {
-    pub fn all(platform: &Platform) -> Vec<Device> {
+    pub fn all(platform: &Platform) -> Vec<Self> {
         let devices = all_device_ids(platform.id, Type::All.into());
-        devices.into_iter().map(|id| Device { id }).collect()
+        devices.into_iter().map(|id| Self { id }).collect()
     }
 
-    pub fn default(platform: &Platform) -> Option<Device> {
+    pub fn default(platform: &Platform) -> Option<Self> {
         let device = first_device_id(platform.id, Type::Default.into());
-        device.map(|id| Device { id })
+        device.map(|id| Self { id })
     }
 
     pub fn profile(&self) -> Profile {

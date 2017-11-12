@@ -98,12 +98,12 @@ pub struct Platform {
 }
 
 impl Platform {
-    pub fn all() -> Vec<Platform> {
-        all_platform_ids().into_iter().map(|id| Platform { id }).collect()
+    pub fn all() -> Vec<Self> {
+        all_platform_ids().into_iter().map(|id| Self { id }).collect()
     }
 
-    pub fn first() -> Option<Platform> {
-        first_platform_id().map(|id| Platform { id })
+    pub fn first() -> Option<Self> {
+        first_platform_id().map(|id| Self { id })
     }
 
     pub fn all_devices(&self) -> Vec<Device> {
