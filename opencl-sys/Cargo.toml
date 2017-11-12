@@ -6,3 +6,7 @@ authors = ["Kerollmops <renault.cle@gmail.com>"]
 license = "MIT"
 
 [dependencies]
+
+[build-dependencies]
+# bindgen = "0.31"
+bindgen = { branch = "master", git = "https://github.com/rust-lang-nursery/rust-bindgen.git" }
