@@ -133,8 +133,9 @@ impl Platform {
         name.into_string().unwrap()
     }
 
-    pub fn vendor() -> () {
-        unimplemented!()
+    pub fn vendor(&self) -> String {
+        let vendor = platform_info(self.id, Info::Vendor.into());
+        vendor.into_string().unwrap()
     }
 
     pub fn extensions() -> () {
