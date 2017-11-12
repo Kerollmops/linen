@@ -39,4 +39,11 @@ impl Platform {
         let platform_ids = all_platform_ids();
         platform_ids.into_iter().map(|id| Platform { id }).collect()
     }
+
+    pub fn first() -> Option<Platform> {
+        // TODO: don't load all platforms
+        let mut all_platforms = Self::all();
+        all_platforms.truncate(1);
+        all_platforms.pop()
+    }
 }
