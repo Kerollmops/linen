@@ -106,7 +106,7 @@ fn platform_info(platform_id: cl_platform_id, info: cl_platform_info) -> CString
     };
     assert_eq!(ret, CL_SUCCESS);
 
-    unsafe { value.set_len(value_size) };
+    unsafe { value.set_len(value_size - 1) }; // ignore trailing '\0'
 
     CString::new(value).unwrap()
 }
@@ -117,7 +117,7 @@ pub enum Profile {
     Embedded,
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct Extensions {
     inner: String,
 }
