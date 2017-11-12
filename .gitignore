@@ -1,3 +1,4 @@
 /target/
 opencl-sys/target/
+core/target/
 lib/target/
