@@ -3,6 +3,7 @@ extern crate cl_sys as opencl_sys;
 
 pub mod platform;
 pub mod device;
+pub mod extensions;
 
 pub use platform::Platform;
 pub use device::Device;

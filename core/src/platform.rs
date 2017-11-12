@@ -1,6 +1,5 @@
 use std::ptr;
 use std::ffi::CString;
-use std::str::SplitWhitespace;
 use opencl_sys::{cl_platform_id, cl_platform_info, c_void};
 use opencl_sys::{
     CL_SUCCESS,
@@ -12,6 +11,7 @@ use opencl_sys::{
 };
 use opencl_sys::{clGetPlatformIDs, clGetPlatformInfo};
 use device::Device;
+use extensions::Extensions;
 
 fn all_platform_ids() -> Vec<cl_platform_id> {
     let mut num_platforms = 0;
@@ -116,19 +116,6 @@ fn platform_info(platform_id: cl_platform_id, info: cl_platform_info) -> CString
 pub enum Profile {
     Full,
     Embedded,
-}
-
-#[derive(Debug, Clone)]
-pub struct Extensions {
-    inner: String,
-}
-
-impl Extensions {
-    /// Iterate over every extensions,
-    /// represented by an `str` that doesn't contains space.
-    pub fn iter(&self) -> SplitWhitespace {
-        self.inner.split_whitespace()
-    }
 }
 
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
