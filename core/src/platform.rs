@@ -59,27 +59,6 @@ fn first_platform_id() -> Option<cl_platform_id> {
     }
 }
 
-#[derive(Debug, Copy, Clone)]
-enum Info {
-    Profile,
-    Version,
-    Name,
-    Vendor,
-    Extensions,
-}
-
-impl From<Info> for cl_platform_info {
-    fn from(value: Info) -> Self {
-        match value {
-            Info::Profile => CL_PLATFORM_PROFILE,
-            Info::Version => CL_PLATFORM_VERSION,
-            Info::Name => CL_PLATFORM_NAME,
-            Info::Vendor => CL_PLATFORM_VENDOR,
-            Info::Extensions => CL_PLATFORM_EXTENSIONS,
-        }
-    }
-}
-
 fn platform_info(platform_id: cl_platform_id, info: cl_platform_info) -> CString {
     let mut value_size = 0;
 
@@ -141,9 +120,9 @@ impl Platform {
     }
 
     pub fn profile(&self) -> Profile {
-        let profile = platform_info(self.id, Info::Profile.into());
-        let profile = profile.into_string().unwrap();
-        match profile.as_str() {
+        let value = platform_info(self.id, CL_PLATFORM_PROFILE);
+        let value = value.into_string().unwrap();
+        match value.as_str() {
             "FULL_PROFILE" => Profile::Full,
             "EMBEDDED_PROFILE" => Profile::Embedded,
             _ => panic!("Unknown profile type")
@@ -156,19 +135,19 @@ impl Platform {
     }
 
     pub fn name(&self) -> String {
-        let name = platform_info(self.id, Info::Name.into());
-        name.into_string().unwrap()
+        let value = platform_info(self.id, CL_PLATFORM_NAME);
+        value.into_string().unwrap()
     }
 
     pub fn vendor(&self) -> String {
-        let vendor = platform_info(self.id, Info::Vendor.into());
-        vendor.into_string().unwrap()
+        let value = platform_info(self.id, CL_PLATFORM_VENDOR);
+        value.into_string().unwrap()
     }
 
     pub fn extensions(&self) -> Extensions {
-        let extensions = platform_info(self.id, Info::Extensions.into());
+        let value = platform_info(self.id, CL_PLATFORM_EXTENSIONS);
         Extensions {
-            inner: extensions.into_string().unwrap()
+            inner: value.into_string().unwrap()
         }
     }
 }
