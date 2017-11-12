@@ -11,6 +11,7 @@ use opencl_sys::{
     CL_PLATFORM_EXTENSIONS,
 };
 use opencl_sys::{clGetPlatformIDs, clGetPlatformInfo};
+use device::Device;
 
 fn all_platform_ids() -> Vec<cl_platform_id> {
     let mut num_platforms = 0;
@@ -142,6 +143,14 @@ impl Platform {
 
     pub fn first() -> Option<Platform> {
         first_platform_id().map(|id| Platform { id })
+    }
+
+    pub fn all_devices(&self) -> Vec<Device> {
+        Device::all(self)
+    }
+
+    pub fn default_device(&self) -> Option<Device> {
+        Device::default(self)
     }
 
     pub fn profile(&self) -> Profile {
