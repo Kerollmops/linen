@@ -97,6 +97,16 @@ pub enum Profile {
     Embedded,
 }
 
+impl<'a> From<&'a str> for Profile {
+    fn from(value: &'a str) -> Self {
+        match value {
+            "FULL_PROFILE" => Profile::Full,
+            "EMBEDDED_PROFILE" => Profile::Embedded,
+            _ => panic!("Unknown profile type")
+        }
+    }
+}
+
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
 pub struct Platform {
     pub(crate) id: cl_platform_id,
@@ -122,11 +132,7 @@ impl Platform {
     pub fn profile(&self) -> Profile {
         let value = platform_info(self.id, CL_PLATFORM_PROFILE);
         let value = value.into_string().unwrap();
-        match value.as_str() {
-            "FULL_PROFILE" => Profile::Full,
-            "EMBEDDED_PROFILE" => Profile::Embedded,
-            _ => panic!("Unknown profile type")
-        }
+        Profile::from(value.as_str())
     }
 
     pub fn version() -> () {
