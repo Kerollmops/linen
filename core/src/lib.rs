@@ -1,4 +1,4 @@
-extern crate linen_core;
+extern crate opencl_sys;
 
 //
 

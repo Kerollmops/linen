@@ -1,2 +1,2 @@
 [workspace]
-members = ["opencl-sys", "lib"]
+members = ["opencl-sys", "core", "lib"]

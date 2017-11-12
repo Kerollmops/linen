@@ -1,0 +1,9 @@
+[package]
+name = "linen-core"
+version = "0.1.0"
+description = "Wrapper around OpenCL raw types and functions"
+authors = ["Kerollmops <renault.cle@gmail.com>"]
+license = "MIT"
+
+[dependencies]
+opencl-sys = { version = "0.1", path = "../opencl-sys" }
