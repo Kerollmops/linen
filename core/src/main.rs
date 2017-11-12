@@ -6,8 +6,8 @@ fn main() {
     let platforms = Platform::all();
 
     for platform in platforms {
-        println!("profile: {:?}", platform.profile());
         println!("name: {}", platform.name());
+        println!("profile: {:?}", platform.profile());
         println!("vendor: {}", platform.vendor());
 
         println!("extensions:");
@@ -18,6 +18,7 @@ fn main() {
         println!("devices:");
         for device in platform.all_devices() {
             println!("\tname: {}", device.name());
+            println!("\tprofile: {:?}", device.profile());
             println!("\tvendor: {}", device.vendor());
 
             for extension in device.extensions().iter() {

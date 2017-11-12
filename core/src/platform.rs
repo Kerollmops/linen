@@ -10,8 +10,9 @@ use opencl_sys::{
     CL_PLATFORM_EXTENSIONS,
 };
 use opencl_sys::{clGetPlatformIDs, clGetPlatformInfo};
-use device::Device;
 use extensions::Extensions;
+use profile::Profile;
+use device::Device;
 
 fn all_platform_ids() -> Vec<cl_platform_id> {
     let mut num_platforms = 0;
@@ -89,22 +90,6 @@ fn platform_info(platform_id: cl_platform_id, info: cl_platform_info) -> CString
     unsafe { value.set_len(value_size - 1) }; // ignore trailing '\0'
 
     CString::new(value).unwrap()
-}
-
-#[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
-pub enum Profile {
-    Full,
-    Embedded,
-}
-
-impl<'a> From<&'a str> for Profile {
-    fn from(value: &'a str) -> Self {
-        match value {
-            "FULL_PROFILE" => Profile::Full,
-            "EMBEDDED_PROFILE" => Profile::Embedded,
-            _ => panic!("Unknown profile type")
-        }
-    }
 }
 
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]

@@ -63,7 +63,7 @@ use opencl_sys::{
     // CL_DEVICE_PREFERRED_VECTOR_WIDTH_SHORT,
     // CL_DEVICE_PRINTF_BUFFER_SIZE,
     // CL_DEVICE_PREFERRED_INTEROP_USER_SYNC,
-    // CL_DEVICE_PROFILE,
+    CL_DEVICE_PROFILE,
     // CL_DEVICE_PROFILING_TIMER_RESOLUTION,
     // CL_DEVICE_QUEUE_PROPERTIES,
     // CL_DEVICE_REFERENCE_COUNT,
@@ -75,8 +75,9 @@ use opencl_sys::{
     // CL_DRIVER_VERSION,
 };
 use opencl_sys::{clGetDeviceIDs, clGetDeviceInfo};
-use platform::Platform;
 use extensions::Extensions;
+use profile::Profile;
+use platform::Platform;
 
 fn all_device_ids(platform_id: cl_platform_id, type_: cl_device_type) -> Vec<cl_device_id> {
     let mut num_devices = 0;
@@ -205,6 +206,12 @@ impl Device {
     pub fn default(platform: &Platform) -> Option<Device> {
         let device = first_device_id(platform.id, Type::Default.into());
         device.map(|id| Device { id })
+    }
+
+    pub fn profile(&self) -> Profile {
+        let value = device_info_as_cstring(self.id, CL_DEVICE_PROFILE);
+        let value = value.into_string().unwrap();
+        Profile::from(value.as_str())
     }
 
     pub fn version(&self) -> () {
