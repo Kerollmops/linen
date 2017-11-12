@@ -137,8 +137,7 @@ pub struct Platform {
 
 impl Platform {
     pub fn all() -> Vec<Platform> {
-        let platform_ids = all_platform_ids();
-        platform_ids.into_iter().map(|id| Platform { id }).collect()
+        all_platform_ids().into_iter().map(|id| Platform { id }).collect()
     }
 
     pub fn first() -> Option<Platform> {
